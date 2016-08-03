@@ -1,0 +1,18 @@
+<table class="table">
+  <tr>
+    <th>
+      Time
+    </th>
+    <th>
+      Temperature
+    </th>
+  </tr>
+  <tr ng-repeat="temperature in temperatures">
+    <td>
+      {{temperature.time | date: "MM/dd/yy HH:mm"}}
+    </td>
+    <td>
+      {{temperature.temperature}}
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link data-require="bootstrap-css@*" data-semver="3.2.0" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  
+  <body class="container-fluid" ng-controller="monitorCtrl as monitor">
+    <header class="row">
+      <h1 class="col-xs-12">Temperature Monitor</h1>
+    </header>
+    <section class="row">
+      <div class="col-xs-6">
+        <temperature-display temperature="monitor.latestTemperature" units="&#8457;" title="Latest Temperature"></temperature-display>
+      </div>
+      <div class="col-xs-6">
+        <temperature-display temperature="monitor.medianTemperature" units="&#8457;" title="Median Temperature"></temperature-display>
+      </div>
+    </section>
+    <form name="temperatureForm" class="row" novalidate>
+      <div class="col-xs-6">
+        <div class="input-group">
+          <span class="input-group-addon" id="temperature_input_label">&#127777;<p class="sr-only">Temperature</p></span>
+          <input name="temperature" type="number" min="{{monitor.SETTINGS.MIN_TEMP}}" max="{{monitor.SETTINGS.MAX_TEMP}}" step="0.1" placeholder="Temp"  class="form-control" autofocus aria-labelledby="temperature_input_label" ng-model="temperature" required/>
+          <span class="input-group-btn">
+            <button class="btn btn-primary" ng-disabled="temperatureForm.$invalid" ng-click="monitor.recordTemperature(temperature)">Add</button>
+          </span>
+        </div>
+        <div class="hint col-xs-6" ng-hide="temperatureForm.$dirty" ng-cloak>
+          <span class="hint-text">To get started, enter a temperature between {{monitor.SETTINGS.MIN_TEMP}}&#8457; and {{monitor.SETTINGS.MAX_TEMP}}&#8457; and select 'Add'</span>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <button class="btn btn-primary btn-stretch" ng-disabled="monitor.temperatures.length <= 0" ng-click="monitor.getCurrentMedian()">Get Median <span class="hidden-xs">Temperature</span></button>
+      </div>
+      <div class="col-xs-12">
+        <error-display error="monitor.error" class="col-xs-12 error" ng-show="monitor.error" ng-cloak></error-display>
+      </div>
+    </form>
+    <section class="row" ng-show="monitor.temperatures.length > 0">
+      <div class="col-xs-12">
+        <temperature-log temperatures="monitor.temperatures"></temperature-log>
+        <a href="#" ng-click="monitor.clearTemperatureLog()">Clear Temperatures</a>
+      </div>
+    </section>
+    <hr/>
+    <p>Developer name: Jason Paul R. Wilson</p>
+  
+    <hr/>
+    <a href="jasmine-test-runner.html">Run Unit Tests</a>
+    
+    <!-- Include Angular -->
+    <script data-require="angular.js@*" data-semver="1.3.5" src="https://code.angularjs.org/1.3.5/angular.js"></script>
+    
+    <!-- Main App-->
+    <script src="app/app.js"></script>
+    
+    <!-- ErrorDisplay and Dependencies -->
+    <script src="app/components/ErrorDisplay/errorDisplayDirective.js"></script>
+    
+    <!-- TemperatureMonitor and Dependencies -->
+    <script src="app/components/TemperatureMonitor/temperatureMonitorController.js"></script>
+    <script src="app/components/TemperatureMonitor/temperatureMonitorService.js"></script>
+    <script src="app/components/TemperatureMonitor/temperatureLogDirective.js"></script>
+    <script src="app/components/TemperatureMonitor/temperatureDisplayDirective.js"></script>
+    
+    
+  </body>
+
+</html>
