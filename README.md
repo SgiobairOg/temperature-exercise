@@ -1,4 +1,5 @@
 #CODING EXERCISE - JavaScript/SPA
+[View the Plnkr] (http://plnkr.co/jXqkYZrs0wTHwyKIXnms) for this exercise.
 #*Jason P. Wilson*
 
 ##Exercise Completed 
