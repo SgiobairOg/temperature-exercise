@@ -47,18 +47,18 @@ describe( "TemperatureMonitor Unit Tests", function() {
           { time: 13, temperature: 70 }, 
           { time: 14, temperature: 70 } 
         ];
-      expect( Array.isArray( TemperatureMonitor.listTemperatures( temperatures ) )).toBe(true);
+      expect( Array.isArray( TemperatureMonitor.listTemperatures( temps ) )).toBe(true);
     }));
     
     it("returns the median temperature from an even number of readings",
       inject( function( TemperatureMonitor) {
-        var temperatures = [
-          { time: 12, temeraturep: 71 }, 
+        var temps = [
+          { time: 12, temperature: 71 }, 
           { time: 13, temperature: 72 }, 
           { time: 14, temperature: 73 }, 
           { time: 15, temperature: 72 } 
         ];
-      expect( TemperatureMonitor.getCurrentMedian( temperatures ) ).toBe( 72 );
+      expect( TemperatureMonitor.getCurrentMedian( temps ) ).toBe( 72 );
     }));
     
     it( "returns the median temp from an even number of unique readings",
