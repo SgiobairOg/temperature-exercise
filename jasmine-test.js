@@ -35,12 +35,12 @@ describe( "TemperatureMonitor Unit Tests", function() {
       expect( Array.isArray( TemperatureMonitor.temperatures ) ).toBe( true );
     }));
     
-    it( "doesn't accept 'pickle' as a temperature",
+    it( "doesn't accept nonsense as a temperature",
       inject( function( TemperatureMonitor ) {
       expect( function() { TemperatureMonitor.recordTemperature( 'pickle' ) }).toThrow();
     }));
     
-    it( "provides a list of temperature readings if you ask nicely",
+    it( "provides a list of temperature readings",
       inject( function( TemperatureMonitor ) {
         var temps = [
           { time: 12, temperature: 70 }, 
@@ -72,6 +72,16 @@ describe( "TemperatureMonitor Unit Tests", function() {
       expect( TemperatureMonitor.getCurrentMedian( temperatures ) ).toBe(72.5);
     }));
     
+    it( "returns the median temp from an odd number of unique readings",
+      inject( function( TemperatureMonitor ) {
+        var temperatures = [
+          { time: 13, temperature: 74 }, 
+          { time: 14, temperature: 73 }, 
+          { time: 15, temperature: 72 } 
+        ];
+      expect( TemperatureMonitor.getCurrentMedian( temperatures ) ).toBe(73);
+    }));
+
     it( "returns the median temp from readings containing negative values, in case the limits are changed",
       inject( function( TemperatureMonitor ) {
         var temperatures = [
